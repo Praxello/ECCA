@@ -14,7 +14,7 @@ $(document).ajaxComplete(function() {
     $("#wait").css("display", "none");
 });
 var api_url = 'https://praxello.com/theecca/users/';
-//var api_url = '';
+
 loadPackages();
 var check = 0;
 var flag = 0; //for showing bike li and div
@@ -57,6 +57,7 @@ function loadPackages() {
 }
 
 function loadServices(index) {
+    $('#offersText').hide();
     var serviceData = [];
     serviceData = VehicleData[index];
     var createServiceOptions = '';
@@ -111,7 +112,7 @@ function loadServices(index) {
         }
     }
     if (serviceData.type == 1) {
-        $('#bikeDiv').show();
+
         var bikeVal = '<option value="">Select Number Of Bikes</option>';
         bikeVal += '<option>1</option><option>2</option><option>3</option><option>4</option>';
         createServiceOptions += '<li data-id-vehicle-rel="regular-size-car,compact-suv,minivan,pickup-truck,cargo-truck" class="template-clear-fix">';
@@ -137,7 +138,7 @@ function loadServices(index) {
 function calculate(cost) {
     var Total = VehicleData[rowIndex].cost;
     var finalTotal = 0;
-    var GST = 0.00;
+    var GST = 0;
     var CostOfPackage = VehicleData[rowIndex].cost;
     GST = VehicleData[rowIndex].gst;
     if (MonthsValue.has(cost)) {
@@ -154,12 +155,16 @@ function calculate(cost) {
             let title = a.Title;
             var b = parseInt(mapValue);
             if (months <= b) {
-                $('#offerApplicable').show();
-                $('#offerApplicable1').show();
+                console.log('in if');
                 $('#offersText').show();
                 var data = OffersData.get(j);
+                console.log(data);
                 let discountPercentage = parseFloat(data.DiscountPercentage);
                 let additionalDiscount = parseFloat(data.Price);
+                if (discountPercentage > 0 || additionalDiscount > 0) {
+                    $('#offerApplicable').show();
+                    $('#offerApplicable1').show();
+                }
                 let totalDiscountVal = (parseFloat(Total) / 100) * (discountPercentage);
                 finalTotal = parseFloat(Total) - (additionalDiscount + totalDiscountVal);
                 $('#offersText').html('<h6 style="color:green;text-align:center;">Offer Applied - ' + title + '</h6>');
@@ -167,6 +172,11 @@ function calculate(cost) {
                 $('#discountPercentage').text("(" + discountPercentage + " %)");
                 $('#addDiscount').text(data.Price);
                 break;
+            } else {
+                $('#offerApplicable').hide();
+                $('#offerApplicable1').hide();
+                $('#offersText').hide();
+                console.log('in else');
             }
         }
     } else {
@@ -181,7 +191,7 @@ function calculate(cost) {
     TotalCost = finalTotal;
     finalTotal = parseFloat(bikeCost) + parseFloat(finalTotal);
     $('#packagePrice').text(CostOfPackage);
-    $('#gstval').text(GST);
+    $('#gstval').text(GST.toFixed(2));
     $('#price').text(Total);
     $('#finalTotal').text(finalTotal.toFixed(2));
 }
@@ -191,9 +201,11 @@ function calculateBikeCost(numberOfBikes) {
     var gst = parseFloat(BikeRecords[0].GST);
     var totalValue = 0;
     if (numberOfBikes == '') {
+        $('#bikeDiv').hide();
         totalValue = 0;
         bikeCost = totalValue;
     } else {
+        $('#bikeDiv').show();
         totalValue = ((price + gst) * (numberOfBikes)).toFixed(2);
         bikeCost = totalValue;
     }
