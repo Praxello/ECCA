@@ -25,10 +25,10 @@
 						<div class="template-footer-bottom">
 							
 							<!-- Social icon list -->
-							<center><a href="#">Privacy Policy</a> | <a href="#">Disclaimer Policy</a></center>
+							<center><a href="terms_and_conditions.pdf" target="_blank">Privacy Policy</a> | <a href="disclaimer_policy.pdf" target="_blank">Disclaimer Policy</a></center>
 							<!-- Copyright -->
 							<div class="template-footer-bottom-copyright">
-								Developed By <a href="https://praxello.com" target="_blank">Praxello Solutions Pvt. Ltd.</a> &copy; 2019 <a href="index.html" target="_blank">ECCA</a>
+								Developed By <a href="https://praxello.com" target="_blank">Praxello Solutions Pvt. Ltd.</a> &copy; 2019 <a href="index.php" target="_blank">ECCA</a>
 							</div>
 							
 						</div>
