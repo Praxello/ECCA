@@ -13,8 +13,8 @@ $(document).ajaxStart(function() {
 $(document).ajaxComplete(function() {
     $("#wait").css("display", "none");
 });
-// var api_url = 'https://praxello.com/theecca/users/';
-var api_url = '';
+var api_url = 'https://praxello.com/theecca/users/';
+// var api_url = '';
 loadPackages();
 var check = 0;
 var flag = 0; //for showing bike li and div
