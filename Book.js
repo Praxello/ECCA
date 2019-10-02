@@ -59,6 +59,8 @@ function loadPackages() {
 function loadServices(index) {
     bikeCost = 0;
     $('#bikeDiv').hide();
+    $('#offerApplicable').hide();
+    $('#offerApplicable1').hide();
     $('#offersText').hide();
     var serviceData = [];
     serviceData = VehicleData[index];
