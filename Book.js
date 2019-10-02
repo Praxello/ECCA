@@ -13,8 +13,8 @@ $(document).ajaxStart(function() {
 $(document).ajaxComplete(function() {
     $("#wait").css("display", "none");
 });
-var api_url = 'https://praxello.com/theecca/users/';
-
+// var api_url = 'https://praxello.com/theecca/users/';
+var api_url = '';
 loadPackages();
 var check = 0;
 var flag = 0; //for showing bike li and div
@@ -57,6 +57,8 @@ function loadPackages() {
 }
 
 function loadServices(index) {
+    bikeCost = 0;
+    $('#bikeDiv').hide();
     $('#offersText').hide();
     var serviceData = [];
     serviceData = VehicleData[index];
@@ -155,10 +157,10 @@ function calculate(cost) {
             let title = a.Title;
             var b = parseInt(mapValue);
             if (months <= b) {
-                console.log('in if');
+
                 $('#offersText').show();
                 var data = OffersData.get(j);
-                console.log(data);
+
                 let discountPercentage = parseFloat(data.DiscountPercentage);
                 let additionalDiscount = parseFloat(data.Price);
                 if (discountPercentage > 0 || additionalDiscount > 0) {
@@ -176,7 +178,7 @@ function calculate(cost) {
                 $('#offerApplicable').hide();
                 $('#offerApplicable1').hide();
                 $('#offersText').hide();
-                console.log('in else');
+
             }
         }
     } else {
