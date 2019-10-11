@@ -60,6 +60,7 @@ function loadPackages() {
 
 function loadServices(index) {
     bikeCost = 0;
+    bikes = 0;
     $('#bikeDiv').hide();
     $('#offerApplicable').hide();
     $('#offerApplicable1').hide();
@@ -170,6 +171,7 @@ function calculate(cost) {
         Total = (parseFloat(Total) * parseFloat(mapValue)) + GST;
         Total = Total.toFixed(2);
         finalTotal = Total;
+
         //for offers applicable
         for (let j of OffersData.keys()) {
             var a = OffersData.get(j);
@@ -222,6 +224,7 @@ function calculate(cost) {
 
     TotalCost = finalTotal;
     finalTotal = parseFloat(bikeCost) + parseFloat(finalTotal);
+
     $('#bikeTotal').text(bikeCost);
     $('#packagePrice').text(CostOfPackage);
 
