@@ -7,6 +7,8 @@ var GropusOfServices = new Map();
 var OffersData = new Map();
 var TotalCost = 0;
 var bikeCost = 0;
+var numberOfMonths = 1;
+var bikes = 0;
 $(document).ajaxStart(function() {
     $("#wait").css("display", "block");
 });
@@ -96,7 +98,8 @@ function loadServices(index) {
         createServiceOptions += '<h5>' + serviceData.terms + '</h5></li>'
     }
     if (serviceData.DateDetails != null) {
-        var optionVal = '<option>Select Number of Month</option>';
+        // var optionVal = '<option>Select Number of Month</option>';
+        var optionVal = '';
         var dateCount = serviceData.DateDetails.length;
         for (var j = 0; j < dateCount; j++) {
             MonthsValue.set(serviceData.DateDetails[j].MonthId, serviceData.DateDetails[j].Months);
@@ -128,6 +131,7 @@ function loadServices(index) {
     TotalCost = Total;
 
     $('#serviceList').html(createServiceOptions);
+
     $('#packagePrice').text(costOfPackage);
     $('#price').text(Total);
     $('#finalTotal').text(Total);
@@ -136,18 +140,32 @@ function loadServices(index) {
     $('#bikeCost').text('');
     $('#bikegst').text('');
     $('#bikeTotal').text('');
-
+    if (serviceData.DateDetails != null) {
+        var a = $('#opt').val();
+        calculate(a);
+    }
 }
 //change from here
+
+
 function calculate(cost) {
     var Total = VehicleData[rowIndex].cost;
     var finalTotal = 0;
     var GST = 0;
     var CostOfPackage = VehicleData[rowIndex].cost;
+
     GST = VehicleData[rowIndex].gst;
     if (MonthsValue.has(cost)) {
         var mapValue = MonthsValue.get(cost);
         GST = parseFloat(GST) * parseFloat(mapValue);
+        numberOfMonths = parseFloat(mapValue);
+
+        if (bikes > 0) {
+            var price = parseFloat(BikeRecords[0].OfferPrice);
+            var gst = parseFloat(BikeRecords[0].GST);
+            bikeCost = ((price + gst) * (bikes)) * numberOfMonths;
+        }
+
         CostOfPackage = parseFloat(CostOfPackage) * parseFloat(mapValue);
         Total = (parseFloat(Total) * parseFloat(mapValue)) + GST;
         Total = Total.toFixed(2);
@@ -187,14 +205,26 @@ function calculate(cost) {
         $('#offerApplicable').hide();
         $('#offerApplicable1').hide();
         $('#offersText').hide();
+        GST = parseFloat(GST);
         Total = parseFloat(Total) + parseFloat(GST);
+
         Total = Total.toFixed(2);
         finalTotal = Total;
+        numberOfMonths = 1;
+
+        if (bikes > 0) {
+            var price = parseFloat(BikeRecords[0].OfferPrice);
+            var gst = parseFloat(BikeRecords[0].GST);
+            bikeCost = ((price + gst) * (bikes)) * numberOfMonths;
+        }
+
     }
 
     TotalCost = finalTotal;
     finalTotal = parseFloat(bikeCost) + parseFloat(finalTotal);
+    $('#bikeTotal').text(bikeCost);
     $('#packagePrice').text(CostOfPackage);
+
     $('#gstval').text(GST.toFixed(2));
     $('#price').text(Total);
     $('#finalTotal').text(finalTotal.toFixed(2));
@@ -203,16 +233,20 @@ function calculate(cost) {
 function calculateBikeCost(numberOfBikes) {
     var price = parseFloat(BikeRecords[0].OfferPrice);
     var gst = parseFloat(BikeRecords[0].GST);
+
     var totalValue = 0;
     if (numberOfBikes == '') {
         $('#bikeDiv').hide();
+        bikes = 0;
         totalValue = 0;
         bikeCost = totalValue;
     } else {
+        bikes = numberOfBikes;
         $('#bikeDiv').show();
-        totalValue = ((price + gst) * (numberOfBikes)).toFixed(2);
+        totalValue = (((price + gst) * (numberOfBikes)) * numberOfMonths).toFixed(2);
         bikeCost = totalValue;
     }
+
     $('#bikeCost').text(price * numberOfBikes);
     $('#bikegst').text(gst * numberOfBikes);
     $('#bikeTotal').text(totalValue);
