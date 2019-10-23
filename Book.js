@@ -225,7 +225,8 @@ function calculate(cost) {
     finalTotal = parseFloat(bikeCost) + parseFloat(finalTotal);
 
     $('#bikeTotal').text(bikeCost);
-    $('#months').html("Of " + numberOfMonths + " Months");
+    // $('#months').html("Of " + numberOfMonths + " Months");
+    $('#months').html(numberOfMonths + " Months of " + bikes + " Bikes");
     $('#packagePrice').text(CostOfPackage);
     // $('#packagingprice').html("Of " + numberOfMonths + " Month");
     $('#gstval').text(GST.toFixed(2));
@@ -254,7 +255,7 @@ function calculateBikeCost(numberOfBikes) {
     $('#servicepriceofbike').html("Of " + numberOfBikes + " Bikes");
     $('#bikegst').text(gst * numberOfBikes);
     $('#bikeTotal').text(totalValue);
-    $('#months').html("Of " + numberOfMonths + " Months");
+    $('#months').html(numberOfMonths + " Months of " + numberOfBikes + " Bikes");
     var Total = parseFloat(TotalCost);
     Total = Total + parseFloat(totalValue);
     Total = Total.toFixed(2);

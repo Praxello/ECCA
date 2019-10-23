@@ -195,7 +195,8 @@
   <span class="template-component-booking-summary-price-symbol">INR</span>
   <span id="bikeCost">0.00</span>
   </h5>
-  <span>Service Price <span id="servicepriceofbike"></span></span>
+  <span>Service Price </span><br>
+  <span id="servicepriceofbike"></span>
 </li>
     <li class="template-component-booking-summary-duration">
   
@@ -219,7 +220,8 @@
             <span class="template-component-booking-summary-price-value"
                 id="bikeTotal">0.00</span>
         </h5>
-        <span>Total Service Price <span id="months"></span></span>
+        <span>Total Service Price</span><br>
+        <span id="months"></span>
     </li>
 
 </ul>
