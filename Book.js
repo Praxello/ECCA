@@ -120,7 +120,6 @@ function loadServices(index) {
         }
     }
     if (serviceData.type == 1) {
-
         var bikeVal = '<option value="">Select Number Of Bikes</option>';
         bikeVal += '<option>1</option><option>2</option><option>3</option><option>4</option>';
         createServiceOptions += '<li data-id-vehicle-rel="regular-size-car,compact-suv,minivan,pickup-truck,cargo-truck" class="template-clear-fix">';
@@ -226,8 +225,9 @@ function calculate(cost) {
     finalTotal = parseFloat(bikeCost) + parseFloat(finalTotal);
 
     $('#bikeTotal').text(bikeCost);
+    $('#months').html("Of " + numberOfMonths + " Months");
     $('#packagePrice').text(CostOfPackage);
-
+    // $('#packagingprice').html("Of " + numberOfMonths + " Month");
     $('#gstval').text(GST.toFixed(2));
     $('#price').text(Total);
     $('#finalTotal').text(finalTotal.toFixed(2));
@@ -251,8 +251,10 @@ function calculateBikeCost(numberOfBikes) {
     }
 
     $('#bikeCost').text(price * numberOfBikes);
+    $('#servicepriceofbike').html("Of " + numberOfBikes + " Bikes");
     $('#bikegst').text(gst * numberOfBikes);
     $('#bikeTotal').text(totalValue);
+    $('#months').html("Of " + numberOfMonths + " Months");
     var Total = parseFloat(TotalCost);
     Total = Total + parseFloat(totalValue);
     Total = Total.toFixed(2);
